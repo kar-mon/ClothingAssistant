@@ -1,9 +1,19 @@
 package com.company;
 
 public class Forecast {
-    public Forecast(location choosenLocation, Date date){
-        System.out.println("not yet implemented");
+    public String weather;
+    public double temp;
+    public double wind;
 
-        // clothing appropriate to weather, umbrella not for wind even if it rains
+    public Location location;
+
+    public Forecast(Location choosenLocation) {
+
     }
+
+
+    /*public Forecast(Location choosenLocation){
+        this.location = choosenLocation;
+    }*/
+
 }
