@@ -1,6 +1,6 @@
 package com.company;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,14 +9,10 @@ public class Assistant {
 
     Scanner scanner = new Scanner(System.in);
 
-    Location home;
-    Location work;
-    List<Location> locations = new ArrayList<Location>();
+    List<Location> locations = new ArrayList<>();
     String cityName;
     String countryCode;
     String label;
-
-
 
 
     //Map<String, Location> locations = new HashMap<>();
@@ -64,7 +60,8 @@ public class Assistant {
                         var otherPosition = new PositionAPIConnector(cityName, countryCode);
                         locations.add(new Location(label, cityName, countryCode, otherPosition.latitude, otherPosition.longitude));
                     }
-                }break;
+                }
+                break;
                 case 9:
                     break;
                 default:
@@ -72,6 +69,14 @@ public class Assistant {
                     break;
             }
         } while (option != 9);
+        
+        //exporting locations to a file
+        FileWriter writer = new FileWriter("file.txt");
+        for (Location loc : locations) {
+            writer.write(loc + System.lineSeparator());
+        }
+        writer.close();
+
 
     }
 
@@ -91,10 +96,10 @@ public class Assistant {
     }
 
     private Location findLocation(String locationName) {
-                     for (Location l : locations)
-                    if (l.label.equals(locationName)) {
-                        return l;
-                    }
+        for (Location l : locations)
+            if (l.label.equals(locationName)) {
+                return l;
+            }
         return null;
     }
 
@@ -110,7 +115,7 @@ public class Assistant {
             List<Clothing> clothing = forecast.getClothingList();
 
             System.out.println("You should wear: ");
-            for (Clothing cloth: cloting) {
+            for (Clothing cloth: clothing) {
                 System.out.println(cloth);
             }
 

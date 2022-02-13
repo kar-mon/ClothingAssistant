@@ -39,8 +39,7 @@ public class Main {
         } while (option !=0);
 
 
-        var place = new PositionAPIConnector("Gdańsk", "PL");
-        System.out.println(place);
+        //var place = new PositionAPIConnector("Gdańsk", "PL"); System.out.println(place);
 
 
     }
