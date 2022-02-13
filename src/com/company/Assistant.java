@@ -1,6 +1,7 @@
 package com.company;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,10 +11,12 @@ public class Assistant {
 
     Location home;
     Location work;
-    List<Location> locations;
+    List<Location> locations = new ArrayList<Location>();
     String cityName;
     String countryCode;
     String label;
+
+
 
 
     //Map<String, Location> locations = new HashMap<>();
@@ -25,9 +28,9 @@ public class Assistant {
             System.out.println("1 - add home location");
             System.out.println("2 - add work location");
             System.out.println("3 - add other location");
-            System.out.println("9 - quit");
+            System.out.println("9 - exit to main menu");
 
-            option = scanner.nextInt();
+            option = Integer.parseInt(scanner.nextLine());
 
             switch (option) {
                 case 1: {
@@ -61,8 +64,7 @@ public class Assistant {
                         var otherPosition = new PositionAPIConnector(cityName, countryCode);
                         locations.add(new Location(label, cityName, countryCode, otherPosition.latitude, otherPosition.longitude));
                     }
-                }
-                break;
+                }break;
                 case 9:
                     break;
                 default:

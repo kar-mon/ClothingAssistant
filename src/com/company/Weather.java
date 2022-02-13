@@ -11,14 +11,14 @@ public class Weather {
     private Location location;
 
     //connecting to weather API - main adress
-     private static final String API_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
+     private static final String API_URL = "https://api.openweathermap.org/data/2.5/weather?";
 
     //adding necessary information to address
     private JSONObject getData(double latitude, double longitude) throws IOException {
         //getting individual API key from txt file located at the hard drive
         String appid = new String(Files.readAllBytes(Paths.get("appid/appid.txt")));
         var restapiConnector = new RESTAPIConnector();
-        return restapiConnector.getObject(API_URL+ "lat=" + latitude  + "lon=" + longitude +"&units=metric&appid=" + appid);
+        return restapiConnector.getObject(API_URL+ "lat=" + latitude  + "&lon=" + longitude +"&units=metric&appid=" + appid);
     }
 
      public String weatherMain;
