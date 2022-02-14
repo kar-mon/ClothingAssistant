@@ -48,7 +48,7 @@ public class Assistant {
                 }
                 break;
                 case 3: {
-                    System.out.println("how many locations do you want to add?");
+                    System.out.println("How many locations do you want to add?");
                     int size = Integer.parseInt(scanner.nextLine());
                     for (int i = 0; i < size; i++) {
                         System.out.println("enter location name");
@@ -65,23 +65,25 @@ public class Assistant {
                 case 9:
                     break;
                 default:
-                    System.out.println("Not a valid option");
+                    System.out.println("It's not a valid option");
                     break;
             }
         } while (option != 9);
-        
+
         //exporting locations to a file
         FileWriter writer = new FileWriter("file.txt");
         for (Location loc : locations) {
             writer.write(loc + System.lineSeparator());
         }
         writer.close();
+    }
 
-
+    public void loadLocations() {
+        
     }
 
     public void whatWearNow() throws IOException {
-        System.out.println("Where are you?");
+        System.out.println("Where are you? Enter location name:");
         String locationName = scanner.nextLine();
         Location choosenLocation = findLocation(locationName);
         Forecast forecast = new Forecast(choosenLocation);
@@ -128,5 +130,4 @@ public class Assistant {
 
     public void planATrip() {
     }
-
 }

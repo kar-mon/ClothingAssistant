@@ -9,6 +9,9 @@ import java.nio.file.Paths;
 
 public class Weather {
     private Location location;
+    public static String weatherMain;
+    public double tempFeelsLike;
+    public double windSpeed;
 
     //connecting to weather API - main adress
      private static final String API_URL = "https://api.openweathermap.org/data/2.5/weather?";
@@ -20,10 +23,6 @@ public class Weather {
         var restapiConnector = new RESTAPIConnector();
         return restapiConnector.getObject(API_URL+ "lat=" + latitude  + "&lon=" + longitude +"&units=metric&appid=" + appid);
     }
-
-     public String weatherMain;
-     public double tempFeelsLike;
-     public double windSpeed;
 
      //picking needed information from API response
      public Weather(Location location) throws IOException {
@@ -38,4 +37,7 @@ public class Weather {
     public String toString(){
         return "It's going to be " + weatherMain + ", temperature is: " + tempFeelsLike + " deg C";
     }
+
+    public static String getWeatherMain(){return weatherMain;}
+
 }
