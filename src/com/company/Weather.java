@@ -39,5 +39,7 @@ public class Weather {
     }
 
     public static String getWeatherMain(){return weatherMain;}
+    public double getTempFeelsLike(){return tempFeelsLike;}
+
 
 }

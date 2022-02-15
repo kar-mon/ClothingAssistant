@@ -71,30 +71,36 @@ public class Assistant {
         } while (option != 9);
 
         //exporting locations to a file
-        FileWriter writer = new FileWriter("file.txt");
+
+        /*try{FileWriter writer = new FileWriter("locations.ser");
         for (Location loc : locations) {
             writer.write(loc + System.lineSeparator());
         }
-        writer.close();
+        writer.close();}catch (IOException e) {
+            e.printStackTrace();}*/
+
+        try {
+            FileOutputStream writeData = new FileOutputStream("locations.ser");
+            ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
+
+            writeStream.writeObject(locations);
+            writeStream.flush();
+            writeStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void loadLocations() {
-        
-    }
 
     public void whatWearNow() throws IOException {
         System.out.println("Where are you? Enter location name:");
         String locationName = scanner.nextLine();
         Location choosenLocation = findLocation(locationName);
-        Forecast forecast = new Forecast(choosenLocation);
-        //List<Clothing> clothing = forecast.getClothingList();
         Weather checkWeather = new Weather(choosenLocation);
         System.out.println(checkWeather);
-
-        System.out.println("You should wear: ");
-        /*for (Clothing cloth : clothing) {
-            System.out.println(cloth);
-        }*/
+        Clothing clothing = new Clothing();
+        System.out.println("You should think of: " + clothing.wardrobe(checkWeather));
     }
 
     private Location findLocation(String locationName) {
