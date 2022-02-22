@@ -13,35 +13,33 @@ import java.net.URL;
 //class for connecting to different APIs
 public class RESTAPIConnector {
 
-        private String getData (String API_URL) throws IOException {
-                URL url = new URL(API_URL);
+    private String getData(String API_URL) throws IOException {
+        URL url = new URL(API_URL);
 
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                System.out.println("Connected");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        System.out.println("Connected");
 
-                int status = connection.getResponseCode();
-                System.out.println("Status: " + status);
+        int status = connection.getResponseCode();
+        System.out.println("Status: " + status);
 
-                BufferedReader in = new BufferedReader( //for efficiency
-                        new InputStreamReader(connection.getInputStream()));
-                String inputLine;
-                StringBuffer content = new StringBuffer();
-                while ((inputLine = in.readLine()) != null) {
-                        content.append(inputLine);
-                }
-                in.close();
-
-                return content.toString();
+        BufferedReader in = new BufferedReader( //for efficiency
+                new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
         }
+        in.close();
 
-        public JSONObject getObject(String API_URL) throws IOException {
-
-       return new JSONObject(new JSONTokener(getData(API_URL)));
+        return content.toString();
     }
 
-        public JSONArray getArray(String API_URL) throws IOException {
+    public JSONObject getObject(String API_URL) throws IOException {
+        return new JSONObject(new JSONTokener(getData(API_URL)));
+    }
 
+    public JSONArray getArray(String API_URL) throws IOException {
         return new JSONArray(new JSONTokener(getData(API_URL)));
-        }
+    }
 }

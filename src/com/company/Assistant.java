@@ -1,5 +1,4 @@
 package com.company;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class Assistant {
             System.out.println("1 - add home location");
             System.out.println("2 - add work location");
             System.out.println("3 - add other location");
-            System.out.println("9 - exit to main menu");
+            System.out.println("0 - exit to main menu");
 
             option = Integer.parseInt(scanner.nextLine());
 
@@ -62,45 +61,62 @@ public class Assistant {
                     }
                 }
                 break;
-                case 9:
+                case 0:
                     break;
                 default:
                     System.out.println("It's not a valid option");
                     break;
             }
-        } while (option != 9);
+        } while (option != 0);
 
-        //exporting locations to a file
+        saveLocations();
+    }
 
-        /*try{FileWriter writer = new FileWriter("locations.ser");
-        for (Location loc : locations) {
-            writer.write(loc + System.lineSeparator());
-        }
-        writer.close();}catch (IOException e) {
-            e.printStackTrace();}*/
-
+    //exporting locations to a file
+    private void saveLocations() {
         try {
-            FileOutputStream writeData = new FileOutputStream("locations.ser");
-            ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
-
-            writeStream.writeObject(locations);
-            writeStream.flush();
-            writeStream.close();
-
+            FileOutputStream fileOut = new FileOutputStream("locations.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(locations);
+            out.close();
+            fileOut.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("Successfully exported locations");
     }
 
+    //importing locations from a file created earlier
+    public void loadLocations() {
+        try {
+            FileInputStream fis = new FileInputStream("locations.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            locations = (ArrayList) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
+            return;
+        }
+    }
 
     public void whatWearNow() throws IOException {
         System.out.println("Where are you? Enter location name:");
         String locationName = scanner.nextLine();
         Location choosenLocation = findLocation(locationName);
-        Weather checkWeather = new Weather(choosenLocation);
-        System.out.println(checkWeather);
-        Clothing clothing = new Clothing();
-        System.out.println("You should think of: " + clothing.wardrobe(checkWeather));
+        if (choosenLocation == null) {
+            System.out.println("Sorry, you should define " + locationName + " first");
+            addLocations();
+        } else {
+            WeatherNow checkWeatherNow = new WeatherNow(choosenLocation);
+            System.out.println(checkWeatherNow);
+            Clothing clothing = new Clothing();
+            System.out.println("You should think of: " + clothing.wardrobe(checkWeatherNow));
+        }
     }
 
     private Location findLocation(String locationName) {
@@ -111,27 +127,52 @@ public class Assistant {
         return null;
     }
 
-    /*public void whatWearTomorrow() {
+    public void whatWearTomorrow() throws IOException {
         Location work = findLocation("work");
-        if(work == null){
+        if (work == null) {
             System.out.println("Sorry, you should define work first");
-            addLocations();} else {
-            Date date = new Date();
-            //LocalDateTime.from(date.toInstant().plusDays(1));
-            //todo: add one day to today
-            Forecast forecast = new Forecast(work, date);
-            List<Clothing> clothing = forecast.getClothingList();
+            addLocations();
+        } else {
+            WeatherChecker checkWeatherTomorrow = new WeatherChecker(work, 0);
+            System.out.println(checkWeatherTomorrow);
+            Clothing clothing = new Clothing();
+            System.out.println("You should think of: " + clothing.wardrobeTomorrow(checkWeatherTomorrow));
+        }
+    }
 
-            System.out.println("You should wear: ");
-            for (Clothing cloth: clothing) {
-                System.out.println(cloth);
+    public void whatWearSomewhere() throws IOException {
+        System.out.println("Where would you like to go? Enter location name:");
+        String locationName = scanner.nextLine();
+        Location choosenLocation = findLocation(locationName);
+        int index = 0;
+        if (choosenLocation == null) {
+            System.out.println("Sorry, you should define " + locationName + " first");
+            addLocations();
+        } else {
+            System.out.println("Weather for which day would you like to check?");
+
+            System.out.println("Check weather for:");
+            System.out.println("0 - tomorrow");
+            System.out.println("1 - day after tomorrow");
+            System.out.println("2 - in 3 days");
+            System.out.println("3 - in 4 days");
+            System.out.println("4 - in 5 days");
+            System.out.println("5 - in 6 days");
+            System.out.println("6 - in 7 days");
+            System.out.println("7 - in 8 days");
+            System.out.println("9 - exit to main menu");
+
+            index = Integer.parseInt(scanner.nextLine());
+
+            if (index >= 9 || index < 0) {
+                return;
             }
 
+            WeatherChecker checkWeather = new WeatherChecker(choosenLocation, index);
+            System.out.println(checkWeather);
+            Clothing clothing = new Clothing();
+            System.out.println("You should think of: " + clothing.wardrobeTomorrow(checkWeather));
         }
-    }*/
-
-    public void whatWearSomewhere() {
-
     }
 
     public void planATrip() {

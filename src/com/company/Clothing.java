@@ -2,10 +2,17 @@ package com.company;
 
 public class Clothing {
 
-    public String wardrobe(Weather checkWeather) {
-        String whatToWear = wardrobeByTemp(checkWeather.getTempFeelsLike());
-        String whatToTake = waterFromSky(checkWeather);
-        String whatToTake2 = sunShine(checkWeather);
+    public String wardrobe(WeatherNow checkWeatherNow) {
+        String whatToWear = wardrobeByTemp(checkWeatherNow.getTempFeelsLike());
+        String whatToTake = waterFromSky(checkWeatherNow);
+        String whatToTake2 = sunShine(checkWeatherNow);
+        return whatToWear + whatToTake + whatToTake2;
+    }
+
+    public String wardrobeTomorrow(WeatherChecker checkWeatherTomorrow) {
+        String whatToWear = wardrobeByTemp(checkWeatherTomorrow.getTempFeelsLike());
+        String whatToTake = waterFromSkyTomorrow(checkWeatherTomorrow);
+        String whatToTake2 = sunShineTomorrow(checkWeatherTomorrow);
         return whatToWear + whatToTake + whatToTake2;
     }
 
@@ -18,14 +25,25 @@ public class Clothing {
         return wardrobe6;
     }
 
-    private String waterFromSky(Weather weather) {
+    private String waterFromSky(WeatherNow weather) {
         if (weather.weatherMain == "Rain" || weather.weatherMain == "Snow" || weather.weatherMain == "Drizzle")
             return accessoriesRain;
         return "";
     }
 
-    private String sunShine(Weather weather) {
+    private String waterFromSkyTomorrow(WeatherChecker weather) {
+        if (weather.weatherTomorrow == "Rain" || weather.weatherTomorrow == "Snow" || weather.weatherTomorrow == "Drizzle")
+            return accessoriesRain;
+        return "";
+    }
+
+    private String sunShine(WeatherNow weather) {
         if (weather.weatherMain == "Clear") return accessoriesSun;
+        return "";
+    }
+
+    private String sunShineTomorrow(WeatherChecker weather) {
+        if (weather.weatherTomorrow == "Clear") return accessoriesSun;
         return "";
     }
 

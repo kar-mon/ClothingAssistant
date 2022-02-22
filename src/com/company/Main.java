@@ -11,16 +11,15 @@ public class Main {
 
         int option;
 
-        //menu options for the user
+        //menu for the user
         do{
             System.out.println("Hi, this is your Clothing Assistant");
             System.out.println("You have those options: ");
             System.out.println("1 - add locations");
-            //System.out.println("2 - load saved locations");
-            System.out.println("2 - check what you should wear now");
-            //System.out.println("3 - check what you should wear tomorrow to work");
-            System.out.println("4 - what should you wear at some other location");
-            //System.out.println("5 - plan a trip");
+            System.out.println("2 - load saved locations");
+            System.out.println("3 - check what you should wear now");
+            System.out.println("4 - check what you should wear tomorrow to work");
+            System.out.println("5 - check what should you wear at chosen location on some other day");
             System.out.println("0 - exit");
             System.out.println("What do you want to do next?");
 
@@ -28,21 +27,14 @@ public class Main {
 
             switch (option){
                 case 1: assistant.addLocations();break;
-                //case 2: assistant.loadLocations();break;
-                case 2: assistant.whatWearNow();break;
-                //case 3: assistant.whatWearTomorrow();break;
-                case 4: assistant.whatWearSomewhere();break;
-                //case 5: assistant.planATrip();break;
+                case 2: assistant.loadLocations();break;
+                case 3: assistant.whatWearNow();break;
+                case 4: assistant.whatWearTomorrow();break;
+                case 5: assistant.whatWearSomewhere();break;
                 case 0: break;
                 default:
                     System.out.println("It's not a valid option"); break;
             }
-
         } while (option !=0);
-
-
-        //var place = new PositionAPIConnector("Gdańsk", "PL"); System.out.println(place);
-
-
     }
 }

@@ -1,6 +1,9 @@
 package com.company;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.Serializable;
 
-public class Location {
+public class Location implements Serializable {
     //String name;
     double latitude;
     double longitude;
@@ -15,6 +18,23 @@ public class Location {
         this.latitude = latitude;
         this.longitude = longitude;
 
+    }
+
+    public void ListItem(String label, String city, String country) {
+        this.label = label;
+        this.city = city;
+        this.country = country;
+    }
+
+    public JSONObject getJSONObject() {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("label", label);
+            obj.put("city", city);
+            obj.put("country", country);
+        } catch (JSONException e) {
+        }
+        return obj;
     }
 
     public String toString(){

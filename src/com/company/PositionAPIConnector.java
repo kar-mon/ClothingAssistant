@@ -1,7 +1,5 @@
 package com.company;
-
 import org.json.JSONArray;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,10 +9,6 @@ public class PositionAPIConnector {
 
     //connecting to positioning api
     private static String API_URL = "http://api.openweathermap.org/geo/1.0/direct?q=";
-
-
-    // public static final String API_URL = "http://api.openweathermap.org/geo/1.0/direct?q=";
-
 
     //adding necessary information to address
     public JSONArray getData(String cityName, String countryCode ) throws IOException {
